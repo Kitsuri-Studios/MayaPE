@@ -1,0 +1,144 @@
+<resources>
+    <!-- Common -->
+    <string name="app_name">LeviLauncher</string>
+    <string name="minecraft">Minecraft</string>
+    <string name="version">Version</string>
+    <string name="launch">Launch</string>
+
+    <!-- Mods -->
+    <string name="mods_title">🧩 Mods (%d)</string>
+    <string name="no_mods_found">No Mods Found</string>
+    <string name="mod_load_order">Load order: %d</string>
+    <string name="drag_to_reorder">Drag to reorder</string>
+    <string name="mod_reordered">Mod order updated</string>
+
+    <!-- About -->
+    <string name="about_title">☕ About</string>
+    <string name="copyright">©2024–2025 LeviMC. All rights reserved.</string>
+    <string name="font_license">This app uses the Misans font.</string>
+
+    <!-- Dialogs -->
+    <string name="resourcepack_detected_title">Resource Pack Detected</string>
+    <string name="resourcepack_detected_message">Do you want to launch the game now?\n\nResource Pack: %s</string>
+    <string name="launch_now">Launch Now</string>
+    <string name="launch_later">Launch Later</string>
+
+    <string name="import_confirmation_title">Import Mods</string>
+    <string name="import_confirmation_message">Are you sure you want to import the selected %d mod files?</string>
+    <string name="overwrite_file_title">File Already Exists</string>
+    <string name="overwrite_file_message">The file %s already exists. Do you want to overwrite it?</string>
+    <string name="overwrite">Overwrite</string>
+    <string name="skip">Skip</string>
+    <string name="confirm">Confirm</string>
+
+    <string name="installed_packages">Installed Packages</string>
+    <string name="local_custom">Local Custom</string>
+
+    <!-- Permissions -->
+    <string name="storage_permission_title">Storage Permission Required</string>
+    <string name="storage_permission_message">Please grant storage permission to access mods directory and detect mods.</string>
+    <string name="grant_permission">Grant</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- Feedback -->
+    <string name="files_processed">Successfully processed %d mod files</string>
+    <string name="files_processing_error">File processing failed: %s</string>
+    <string name="user_cancelled">Import cancelled by user</string>
+
+    <string name="error">Error</string>
+
+    <string name="no_install_minecraft">Please install Minecraft first</string>
+    <string name="no_minecraft">Exit</string>
+    <string name="exit">Exit</string>
+
+    <string name="overlay_permission_message">Please grant the overlay permission</string>
+    <string name="overlay_permission_not_granted">Overlay permission not granted</string>
+    <string name="storage_permission_not_granted">Storage permission not granted</string>
+
+    <string name="import_apk">Import APK</string>
+    <string name="install">Install</string>
+    <string name="version_name">Version name</string>
+    <string name="name_invalid">This name cannot be used or is already taken!</string>
+    <string name="install_done">Install finished, version: %1$s</string>
+
+    <string name="illegal_apk_title">Illegal APK</string>
+    <string name="not_mc_apk">Not a Minecraft APK</string>
+
+    <string name="not_found_version">No version found</string>
+
+    <string name="installing_title">Installing…</string>
+    <string name="installing_message">Please wait, installing Minecraft</string>
+
+    <string name="enable_debug_log">Enable Debug Log</string>
+
+    <string name="settings_title">Settings</string>
+    <string name="settings_desc">Your launcher settings</string>
+
+    <string name="unknown_sources_permission_title">Install Permission</string>
+    <string name="unknown_sources_permission_message">To install or update this app, please grant permission to install unknown apps. Click "Grant" to open system settings, enable the permission for this app, and return to continue.</string>
+
+    <string name="check_update">Check for updates</string>
+    <string name="version_prefix">Version: </string>
+
+    <string name="error_launcher_not_initialized">Launcher not initialized</string>
+    <string name="no_version_selected">No game version selected</string>
+    <string name="launch_failed">Launch failed: %1$s</string>
+    <string name="new_version_found">New version found: %1$s</string>
+    <string name="update_question">Do you want to download and install the latest version?</string>
+    <string name="download_update">Download Update</string>
+    <string name="ignore_this_version">Ignore this version</string>
+    <string name="update_progress">Download progress: %1$d%%</string>
+    <string name="update_failed">Download failed: %1$s</string>
+    <string name="install_failed">Unable to install update: %1$s</string>
+    <string name="already_latest_version">Already latest version (%1$s)</string>
+    <string name="version_ignored">This version has been ignored</string>
+    <string name="downloading_update">Downloading update…</string>
+
+    <string name="repair_libs_in_progress">Repairing game library files…</string>
+    <string name="repair_completed">Repair Completed</string>
+    <string name="repair_libs_success_message">Game library files have been successfully repaired. You can now launch the game.</string>
+    <string name="repair_failed">Repair Failed</string>
+    <string name="repair_libs_failed_message">Failed to repair game library files. Please check file integrity.</string>
+    <string name="repair_error">Repair Error</string>
+    <string name="repair_libs_error_message">An error occurred during repair: %s</string>
+    <string name="missing_libs_title">Missing game library files - %s</string>
+    <string name="missing_libs_message">Required game library files are missing. Do you want to repair them now?</string>
+    <string name="repair">Repair</string>
+    <string name="repair_libs_dialog_title">Repairing Game Libraries</string>
+    <string name="requires_repair">[Needs Repair]</string>
+
+    <string name="theme_title">Theme Mode</string>
+    <string name="theme_follow_system">Follow System</string>
+    <string name="theme_light">Force Day Mode</string>
+    <string name="theme_dark">Force Night Mode</string>
+
+    <string name="error_no_browser">No browser available</string>
+
+    <string name="eula_title">LeviLauncher License Agreement</string>
+    <string name="eula_message"><b>Welcome to LeviLauncher</b>\n\nBy using this software you agree to:\n\n• This is an <b>unofficial</b> Minecraft launcher\n• You must own a <b>licensed</b> copy of Minecraft\n• Any form of piracy or cheating is prohibited\n• Mods/resource packs are used at your own risk\n• Not affiliated with Mojang/Microsoft\n\nContinued use constitutes agreement</string>
+    <string name="eula_agree">Accept</string>
+    <string name="eula_exit">Decline</string>
+
+    <string name="allow_unknown_sources">Please allow installation from unknown sources before proceeding</string>
+
+    <string name="dialog_title_delete_version">Delete Version</string>
+    <string name="dialog_message_delete_version">Are you sure to delete this custom version? This action cannot be undone.</string>
+    <string name="dialog_positive_delete">Delete</string>
+    <string name="dialog_negative_cancel">Cancel</string>
+    <string name="toast_delete_success">Deleted successfully</string>
+    <string name="toast_delete_failed">Delete failed: %1$s</string>
+    <string name="error_delete_builtin_version">Cannot delete built-in version</string>
+    <string name="invalid_mod_file">You selected an invalid mod file!</string>
+    <string name="error_versions">Error Versions</string>
+
+    <string name="dialog_title_delete_mod">Delete Mod</string>
+    <string name="dialog_message_delete_mod">Are you sure you want to delete this mod?</string>
+
+    <string name="version_isolation">Version Isolation</string>
+
+    <!-- Language Setting -->
+    <string name="language">Language</string>
+    <string name="english">English</string>
+    <string name="chinese">简体中文</string>
+    <string name="russian">Русский</string>
+</resources>
