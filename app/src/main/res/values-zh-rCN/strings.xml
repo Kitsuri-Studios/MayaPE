@@ -1,0 +1,140 @@
+<resources>
+    <!-- Common -->
+    <string name="app_name">LeviLauncher</string>
+    <string name="minecraft">Minecraft</string>
+    <string name="version">版本</string>
+    <string name="launch">启动</string>
+
+    <!-- Mods -->
+    <string name="mods_title">🧩 模组 (%d)</string>
+    <string name="no_mods_found">未找到模组</string>
+    <string name="mod_load_order">加载顺序：%d</string>
+    <string name="drag_to_reorder">拖动以重新排序</string>
+    <string name="mod_reordered">模组顺序已更新</string>
+    
+    <!-- About -->
+    <string name="about_title">☕ 关于</string>
+    <string name="copyright">©2024–2025 LeviMC. 保留所有权利</string>
+    <string name="font_license">本软件使用 Misans 字体</string>
+
+    <!-- Dialogs -->
+    <string name="resourcepack_detected_title">检测到资源包导入</string>
+    <string name="resourcepack_detected_message">是否立即启动游戏？\n\n资源包：%s</string>
+    <string name="launch_now">立即启动</string>
+    <string name="launch_later">稍后启动</string>
+
+    <string name="import_confirmation_title">导入模组</string>
+    <string name="import_confirmation_message">确定要导入所选的 %d 个模组文件吗？</string>
+    <string name="overwrite_file_title">文件已存在</string>
+    <string name="overwrite_file_message">文件 %s 已存在，是否覆盖？</string>
+    <string name="overwrite">覆盖</string>
+    <string name="skip">跳过</string>
+    <string name="confirm">确认</string>
+
+    <string name="installed_packages">已安装包</string>
+    <string name="local_custom">本地自定义</string>
+
+    <string name="check_update">检查更新</string>
+    <string name="version_prefix">版本号：</string>
+
+    <!-- Permissions -->
+    <string name="storage_permission_title">需要存储权限</string>
+    <string name="storage_permission_message">授予存储权限以便访问 mods 目录，检测模组。</string>
+    <string name="grant_permission">授予权限</string>
+    <string name="cancel">取消</string>
+
+    <!-- Feedback -->
+    <string name="files_processed">成功处理 %d 个模组文件</string>
+    <string name="files_processing_error">文件处理失败：%s</string>
+    <string name="user_cancelled">用户取消导入</string>
+
+    <string name="error">错误</string>
+
+    <string name="no_install_minecraft">请先安装Minecraft</string>
+    <string name="no_minecraft">未安装Minecraft</string>
+    <string name="exit">退出</string>
+
+    <string name="overlay_permission_message">请授予悬浮窗权限</string>
+    <string name="overlay_permission_not_granted">未授予悬浮窗权限</string>
+    <string name="storage_permission_not_granted">未授予存储权限</string>
+
+    <string name="import_apk">导入APK</string>
+    <string name="install">安装</string>
+    <string name="version_name">版本信息</string>
+    <string name="name_invalid">不符合命名规则或已存在！</string>
+    <string name="install_done">安装完成，版本：%1$s</string>
+
+    <string name="illegal_apk_title">非法APK</string>
+    <string name="not_mc_apk">不是Minecraft APK</string>
+
+    <string name="not_found_version">未发现版本</string>
+
+    <string name="installing_title">正在安装中…</string>
+    <string name="installing_message">请稍候，正在安装MC中</string>
+
+    <string name="enable_debug_log">启用Debug Log</string>
+
+    <string name="settings_title">设置</string>
+    <string name="settings_desc">您的启动器设置</string>
+
+    <string name="unknown_sources_permission_title">安装权限</string>
+    <string name="unknown_sources_permission_message">请授予安装未知来源应用的权限，否则无法完成应用更新/安装。点击“授权”前往系统设置开启后返回本应用继续操作。</string>
+
+    <string name="new_version_found">发现新版本：%1$s</string>
+    <string name="update_question">是否下载并安装最新版本？</string>
+    <string name="download_update">下载更新</string>
+    <string name="ignore_this_version">忽略此版本</string>
+    <string name="update_progress">下载进度: %1$d%%</string>
+    <string name="update_failed">下载失败: %1$s</string>
+    <string name="install_failed">无法安装更新: %1$s</string>
+    <string name="already_latest_version">已是最新版本 (%1$s)</string>
+    <string name="version_ignored">此版本已被忽略</string>
+    <string name="downloading_update">正在下载更新…</string>
+
+    <string name="repair_libs_in_progress">修复游戏库文件中…</string>
+    <string name="repair_completed">修复完成</string>
+    <string name="repair_libs_success_message">游戏库文件已成功修复，现在可以启动游戏</string>
+    <string name="repair_failed">修复失败</string>
+    <string name="repair_libs_failed_message">无法修复游戏库文件，请检查文件完整性</string>
+    <string name="repair_error">修复出错</string>
+    <string name="repair_libs_error_message">修复过程中发生错误: %s</string>
+    <string name="missing_libs_title">缺少游戏库文件 - %s</string>
+    <string name="missing_libs_message">检测到缺少必要的游戏库文件，是否立即修复？</string>
+    <string name="repair">修复</string>
+    <string name="repair_libs_dialog_title">修复游戏库文件</string>
+    <string name="requires_repair">[需要修复]</string>
+
+    <string name="theme_title">主题模式</string>
+    <string name="theme_follow_system">跟随系统</string>
+    <string name="theme_light">强制白天</string>
+    <string name="theme_dark">强制夜间</string>
+
+    <string name="error_no_browser">无法打开浏览器</string>
+
+    <string name="eula_title">LeviLauncher 用户协议</string>
+    <string name="eula_message"><b>欢迎使用 LeviLauncher</b>\n\n使用本软件即表示您同意：\n\n• 此为<b>非官方</b> Minecraft 启动器\n• 您需拥有<b>合法授权</b>的 Minecraft 副本\n• 禁止任何形式的盗版或作弊行为\n• 模组/资源包使用风险自负\n• 与 Mojang/Microsoft 无关联\n\n继续使用视为接受条款</string>
+    <string name="eula_agree">接受</string>
+    <string name="eula_exit">拒绝</string>
+
+    <string name="allow_unknown_sources">请允许安装未知来源应用再操作</string>
+
+    <string name="dialog_title_delete_version">删除版本</string>
+    <string name="dialog_message_delete_version">确定要删除此自定义版本？删除后不可恢复。</string>
+    <string name="dialog_positive_delete">删除</string>
+    <string name="dialog_negative_cancel">取消</string>
+    <string name="toast_delete_success">删除成功</string>
+    <string name="toast_delete_failed">删除失败: %1$s</string>
+    <string name="error_delete_builtin_version">不能删除内置版本</string>
+    <string name="invalid_mod_file">你选择了非法的模组文件！</string>
+    <string name="error_versions">错误版本</string>
+
+    <string name="dialog_title_delete_mod">删除 Mod</string>
+    <string name="dialog_message_delete_mod">确定要删除该 Mod 吗？</string>
+
+    <string name="version_isolation">版本隔离</string>
+    <!-- Language Setting -->
+    <string name="language">语言</string>
+    <string name="english">English</string>
+    <string name="chinese">简体中文</string>
+    <string name="russian">Русский</string>
+</resources>
