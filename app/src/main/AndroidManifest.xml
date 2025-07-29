@@ -50,16 +50,9 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true">
 
-        <activity
-            android:name="org.levimc.launcher.ui.activities.SplashActivity"
-            android:exported="true"
-            android:screenOrientation="sensorLandscape"
-            tools:ignore="DiscouragedApi">
-
-        </activity>
 
         <activity
-            android:name="org.levimc.launcher.ui.activities.MainActivity"
+            android:name="io.kitsuri.mayape.ui.activities.MainActivity"
             android:exported="true"
             android:screenOrientation="sensorLandscape"
             tools:ignore="DiscouragedApi" >
@@ -70,7 +63,7 @@
         </activity>
 
         <activity
-            android:name=".ui.activities.IntentHandler"
+            android:name="io.kitsuri.mayape.ui.activities.IntentHandler"
             android:alwaysRetainTaskState="true"
             android:configChanges="fontScale|density|smallestScreenSize|screenSize|uiMode|screenLayout|orientation|navigation|keyboardHidden|keyboard|touchscreen|locale|mnc|mcc"
             android:excludeFromRecents="false"
@@ -173,7 +166,7 @@
         <provider
             android:name="androidx.core.content.FileProvider"
             android:exported="false"
-            android:authorities="org.levimc.launcher.fileprovider"
+            android:authorities="io.kitsuri.mayape.fileprovider"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"

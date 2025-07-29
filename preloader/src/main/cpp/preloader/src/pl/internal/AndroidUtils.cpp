@@ -49,7 +49,7 @@ std::string AndroidUtils::GetAbsolutePath(JNIEnv *env, jobject file) {
 
 std::string AndroidUtils::GetSelectedModsDir(JNIEnv *env, jobject context) {
   jclass versionManagerClass =
-      env->FindClass("org/levimc/launcher/core/versions/VersionManager");
+      env->FindClass("io/kitsuri/mayape/core/versions/VersionManager");
   if (!versionManagerClass)
     return "";
   jmethodID getSelectedModsDirMethod =

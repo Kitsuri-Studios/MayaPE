@@ -1,6 +1,6 @@
 <resources>
     <!-- Common -->
-    <string name="app_name">LeviLauncher</string>
+    <string name="app_name">Maya</string>
     <string name="minecraft">Minecraft</string>
     <string name="version">Version</string>
     <string name="launch">Launch</string>
@@ -14,7 +14,7 @@
 
     <!-- About -->
     <string name="about_title">☕ About</string>
-    <string name="copyright">©2024–2025 LeviMC. All rights reserved.</string>
+    <string name="copyright">©2025 Kitsuri. All rights reserved.</string>
     <string name="font_license">This app uses the Misans font.</string>
 
     <!-- Dialogs -->
@@ -114,8 +114,8 @@
 
     <string name="error_no_browser">No browser available</string>
 
-    <string name="eula_title">LeviLauncher License Agreement</string>
-    <string name="eula_message"><b>Welcome to LeviLauncher</b>\n\nBy using this software you agree to:\n\n• This is an <b>unofficial</b> Minecraft launcher\n• You must own a <b>licensed</b> copy of Minecraft\n• Any form of piracy or cheating is prohibited\n• Mods/resource packs are used at your own risk\n• Not affiliated with Mojang/Microsoft\n\nContinued use constitutes agreement</string>
+    <string name="eula_title">Maya License Agreement</string>
+    <string name="eula_message"><b>Welcome to Maya</b>\n\nBy using this software you agree to:\n\n• This is an <b>unofficial</b> Minecraft launcher\n• You must own a <b>licensed</b> copy of Minecraft\n• Any form of piracy or cheating is prohibited\n• Mods/resource packs are used at your own risk\n• Not affiliated with Mojang/Microsoft\n\nContinued use constitutes agreement</string>
     <string name="eula_agree">Accept</string>
     <string name="eula_exit">Decline</string>
 

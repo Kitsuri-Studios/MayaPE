@@ -29,10 +29,10 @@ static def getVersionCodeByTimestamp() {
 }
 
 android {
-    namespace 'org.levimc.launcher'
+    namespace 'io.kitsuri.mayape'
     compileSdk 35
     defaultConfig {
-        applicationId "org.levimc.launcher"
+        applicationId "io.kitsuri.mayape"
         minSdk 24
         targetSdk 35
         versionCode getVersionCodeByTimestamp()
@@ -70,7 +70,7 @@ android {
     }
     externalNativeBuild {
         xmake {
-            path "src/main/cpp/leviutils/xmake.lua"
+            path "src/main/cpp/mio/xmake.lua"
             logLevel "verbose"
             buildMode "release"
         }

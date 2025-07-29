@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "levilauncher"
+rootProject.name = "MayaPE"
 include ':app'
 include ':preloader'
