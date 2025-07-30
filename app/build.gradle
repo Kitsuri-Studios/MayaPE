@@ -79,6 +79,8 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation project(':TablerIcons')
     implementation project(':preloader')
     implementation libs.core.splashscreen
     implementation libs.apk.parser

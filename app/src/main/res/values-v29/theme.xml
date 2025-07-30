@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Base.Theme.FullScreen" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Maya.Theme.FullScreen" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowFullscreen">true</item>
         <item name="colorPrimary">@color/primary</item>
         <item name="colorOnPrimary">@color/on_primary</item>
@@ -26,11 +26,11 @@
 
     </style>
 
-    <style name="AppTheme.Light" parent="Base.Theme.FullScreen">
+    <style name="AppTheme.Light" parent="Maya.Theme.FullScreen">
         <item name="android:forceDarkAllowed">false</item>
     </style>
 
-    <style name="AppTheme.Dark" parent="Base.Theme.FullScreen">
+    <style name="AppTheme.Dark" parent="Maya.Theme.FullScreen">
         <item name="android:forceDarkAllowed">true</item>
     </style>
 </resources>
