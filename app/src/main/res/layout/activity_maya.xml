@@ -4,7 +4,7 @@
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ic_minecraft_background_static"
+    android:background="#110011"
     android:orientation="vertical"
     android:paddingStart="0dp"
     android:paddingTop="0dp"
@@ -158,12 +158,7 @@
         android:paddingStart="8.dp"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#ffffff"
-            android:text="Version: 1.21.94"
-            android:textSize="18sp" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -215,38 +210,19 @@
         android:gravity="center_vertical"
 
         android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="60.dip"
-            android:layout_height="60.dip"
-            android:src="@drawable/ic_user_filled"
-            app:tint="#FBB937"/>
-        <LinearLayout
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_vertical">
+            android:textColor="#ffffff"
+            android:text="Version: 1.21.94"
+            android:textSize="12sp"
+            android:layout_margin="8dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Logged In as:"
-                android:textSize="16sp"
-                android:textColor="#ffffff"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Guest"
-                android:textSize="20sp"
-                android:textColor="#FBB937"
-                android:textStyle="bold"/>
-        </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
+
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -257,18 +233,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Launcher v2"
-                android:textSize="16sp"
+                android:text="Logged In"
+                android:textSize="12sp"
                 android:textColor="#ffffff"
                 />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Success"
-                android:textSize="20sp"
-                android:textColor="#747171"
-                />
         </LinearLayout>
     </LinearLayout>
 

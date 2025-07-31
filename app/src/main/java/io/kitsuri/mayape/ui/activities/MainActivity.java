@@ -86,7 +86,7 @@ public class MainActivity extends BaseActivity {
         updateViewModelVersion();
 
 
-        checkResourcepack();
+       // checkResourcepack();
         handleIncomingFiles();
         initSettingsUi();
 
@@ -143,7 +143,7 @@ public class MainActivity extends BaseActivity {
 
                             @Override
                             public void onProgressUpdate(int progress) {
-                                if (binding != null) binding.progressLoader.setProgress(progress);
+                               // if (binding != null) binding.progressLoader.setProgress(progress);
                             }
                         }, true);
                     }
@@ -158,8 +158,8 @@ public class MainActivity extends BaseActivity {
 
     private void initModsRecycler() {
         modsAdapter = new ModsAdapter(new ArrayList<>());
-        binding.modsRecycler.setLayoutManager(new LinearLayoutManager(this));
-        binding.modsRecycler.setAdapter(modsAdapter);
+      //  binding.modsRecycler.setLayoutManager(new LinearLayoutManager(this));
+       // binding.modsRecycler.setAdapter(modsAdapter);
         modsAdapter.setOnModEnableChangeListener((mod, enabled) -> {
             if (viewModel != null) viewModel.setModEnabled(mod.getFileName(), enabled);
         });
@@ -199,7 +199,7 @@ public class MainActivity extends BaseActivity {
                         .show();
             }
         };
-        new ItemTouchHelper(simpleCallback).attachToRecyclerView(binding.modsRecycler);
+       // new ItemTouchHelper(simpleCallback).attachToRecyclerView(binding.modsRecycler);
 
         viewModel.getModsLiveData().observe(this, this::updateModsUI);
     }
@@ -211,16 +211,16 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    private void checkResourcepack() {
+  /*  private void checkResourcepack() {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         new ResourcepackHandler(
                 this,
                 minecraftLauncher,
                 executorService,
-                binding.progressLoader,
-                binding.launchButton
+               // binding.progressLoader,
+             //   binding.launchButton
         ).checkIntentForResourcepack();
-    }
+    }*/
 
     private void repairNeededVersions() {
         for (GameVersion version : versionManager.getCustomVersions()) {
@@ -256,13 +256,13 @@ public class MainActivity extends BaseActivity {
 
     private void updateAbiLabel() {
         if (binding == null) return;
-        TextView abiLabel = binding.abiLabel;
+       // TextView abiLabel = binding.abiLabel;
         String abiList = (versionManager.getSelectedVersion() != null) ? versionManager.getSelectedVersion().abiList : null;
         String abiToShow = "unknown";
         if (!TextUtils.isEmpty(abiList) && !"unknown".equals(abiList)) {
             abiToShow = abiList.split("\\n")[0].trim();
         }
-        abiLabel.setText(abiToShow);
+     //   abiLabel.setText(abiToShow);
         int bgRes = switch (abiToShow) {
             case "arm64-v8a" -> R.drawable.bg_abi_arm64_v8a;
             case "armeabi-v7a" -> R.drawable.bg_abi_armeabi_v7a;
@@ -270,7 +270,7 @@ public class MainActivity extends BaseActivity {
             case "x86_64" -> R.drawable.bg_abi_x86_64;
             default -> R.drawable.bg_abi_default;
         };
-        abiLabel.setBackgroundResource(bgRes);
+        //abiLabel.setBackgroundResource(bgRes);
     }
 
     private void initSettingsUi() {
@@ -290,26 +290,26 @@ public class MainActivity extends BaseActivity {
 
     @SuppressLint({"ClickableViewAccessibility", "UnsafeIntentLaunch"})
     private void initListeners() {
-        binding.launchButton.setOnClickListener(v -> launchGame());
-        binding.launchButton.setOnTouchListener(this::animateLaunchButton);
+        binding.launch.setOnClickListener(v -> launchGame());
+        binding.launch.setOnTouchListener(this::animateLaunchButton);
 
-        binding.selectVersionButton.setOnClickListener(v -> showVersionSelectDialog());
-        binding.importApkButton.setOnClickListener(v -> startFilePicker("application/vnd.android.package-archive", apkImportResultLauncher));
-        binding.addModButton.setOnClickListener(v -> startFilePicker("*/*", soImportResultLauncher));
-        binding.settingsButton.setOnClickListener(v -> showSettingsSafely());
-        binding.deleteVersionButton.setOnClickListener(v -> showDeleteVersionDialog());
+      //  binding.selectVersionButton.setOnClickListener(v -> showVersionSelectDialog());
+      //  binding.importApkButton.setOnClickListener(v -> startFilePicker("application/vnd.android.package-archive", apkImportResultLauncher));
+      //  binding.addModButton.setOnClickListener(v -> startFilePicker("*/*", soImportResultLauncher));
+      //  binding.settingsButton.setOnClickListener(v -> showSettingsSafely());
+      //  binding.deleteVersionButton.setOnClickListener(v -> showDeleteVersionDialog());
         FeatureSettings.init(getApplicationContext());
     }
 
     private void launchGame() {
-        binding.launchButton.setEnabled(false);
-        binding.progressLoader.setVisibility(View.VISIBLE);
+        binding.launch.setEnabled(false);
+       // binding.progressLoader.setVisibility(View.VISIBLE);
         new Thread(() -> {
             GameVersion version = versionManager != null ? versionManager.getSelectedVersion() : null;
             minecraftLauncher.launch(getIntent(), version);
             runOnUiThread(() -> {
-                binding.progressLoader.setVisibility(View.GONE);
-                binding.launchButton.setEnabled(true);
+               // binding.progressLoader.setVisibility(View.GONE);
+                binding.launch.setEnabled(true);
             });
         }).start();
     }
@@ -424,7 +424,7 @@ public class MainActivity extends BaseActivity {
         if (binding == null) return;
         String display = versionManager.getSelectedVersion() != null ?
                 versionManager.getSelectedVersion().displayName : getString(R.string.not_found_version);
-        binding.textMinecraftVersion.setText(TextUtils.isEmpty(display) ? getString(R.string.not_found_version) : display);
+       // binding.textMinecraftVersion.setText(TextUtils.isEmpty(display) ? getString(R.string.not_found_version) : display);
         updateAbiLabel();
     }
 
@@ -443,7 +443,7 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onProgressUpdate(int progress) {
-                if (binding != null) binding.progressLoader.setProgress(progress);
+                //if (binding != null) binding.progressLoader.setProgress(progress);
             }
         }, false);
     }
@@ -452,7 +452,7 @@ public class MainActivity extends BaseActivity {
         modsAdapter.updateMods(mods != null ? mods : new ArrayList<>());
         if (binding == null) return;
         int modCount = (mods != null) ? mods.size() : 0;
-        binding.modsTitleText.setText(getString(R.string.mods_title, modCount));
+      //  binding.modsTitleText.setText(getString(R.string.mods_title, modCount));
         if (modCount == 0) {
             TextView tv = new TextView(this);
             tv.setText(R.string.no_mods_found);

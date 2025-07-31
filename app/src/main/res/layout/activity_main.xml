@@ -4,255 +4,184 @@
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="#010203"
     android:orientation="vertical"
-    android:paddingStart="15dp"
+    android:paddingStart="8dp"
     android:paddingTop="0dp"
-    android:paddingEnd="15dp"
-    android:paddingBottom="24dp">
+    android:paddingEnd="8dp"
+    android:paddingBottom="0dp">
+
 
     <LinearLayout
-        android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/surface"
-        android:gravity="center_vertical"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8.dp"
+        android:layout_gravity="center_vertical">
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_leaf_logo" />
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="5.dp"
+            android:src="@drawable/logo" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:fontFamily="@font/misans"
-            android:text="@string/app_name"
-            android:textColor="#8BC34A"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:padding="8.dp"
+            android:text="Maya Launcher"
+            android:textColor="#ffffff"
+            android:textSize="28dp" />
 
-        <Space
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"/>
 
-        <ImageButton
-            android:id="@+id/settings_button"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginHorizontal="5dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:paddingTop="12.dp"
+            android:paddingBottom="12.dp"
+            android:paddingStart="12.dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_settings"
-            app:tint="@color/on_surface" />
+            android:src="@drawable/ic_settings_2"
+            app:tint="#ffffff" />
 
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="219dp"
+        android:layout_gravity="center"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="227dp"
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Good Afternoon!"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textSize="28.dip" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Ready To Play?"
+                    android:textAlignment="center"
+                    android:textColor="#E6E6E6"
+                    android:textSize="18.dip" />
+            </LinearLayout>
+
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/launch"
+                android:layout_width="160.dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/background_button"
+                android:elevation="6dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="15dp">
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Launch"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                   />
+            </LinearLayout>
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="160.dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_margin="3dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/background_button_dark"
+                android:elevation="6dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="16dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Libraries"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:text="Version: 1.21.94"
+            android:textSize="12sp"
+            android:layout_margin="8dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
 
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="5dp"
-            android:orientation="horizontal"></LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:paddingTop="15dp"
-        android:paddingBottom="0dp">
-
-        <LinearLayout
-            android:id="@+id/main_card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/card_background"
             android:orientation="vertical"
-            android:padding="15dp"
-            android:paddingEnd="16dp">
+            android:gravity="end">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingEnd="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/misans"
-                    android:text="@string/minecraft"
-                    android:textColor="@color/on_surface"
-                    android:textSize="32sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/abi_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="32dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/bg_abi_default"
-                    android:gravity="center"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:text="Vanilla"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/import_apk_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="8dp"
-                    android:backgroundTint="@color/primary"
-                    android:gravity="center"
-                    android:minHeight="0dp"
-                    android:paddingHorizontal="12dp"
-                    android:text="@string/import_apk"
-                    android:textColor="@color/on_primary"
-                    android:textSize="18sp" />
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1" />
-
-                <ImageButton
-                    android:id="@+id/delete_version_button"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="4dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:src="@drawable/ic_delete"
-                    android:tint="@color/error"
-                    android:visibility="visible" />
-            </LinearLayout>
-            <!-- 版本选择 & 启动按钮 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingEnd="8dp">
-
-                <TextView
-                    android:id="@+id/text_minecraft_version"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableStart="@drawable/ic_minecraft_cube"
-                    android:drawablePadding="7dp"
-                    android:fontFamily="@font/misans"
-                    android:gravity="center_vertical"
-                    android:includeFontPadding="false"
-                    android:lineHeight="24dp"
-                    android:textColor="@color/on_surface"
-                    android:textSize="24dp" />
-
-                <ImageButton
-                    android:id="@+id/select_version_button"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="8dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:src="@drawable/ic_arrow_down"
-                    android:tint="@color/on_surface" />
-
-                <ProgressBar
-                    android:id="@+id/progress_loader"
-                    style="?android:attr/progressBarStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:visibility="gone" />
-
-                <Button
-                    android:id="@+id/launch_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="4dp"
-                    android:backgroundTint="@color/primary"
-                    android:drawablePadding="4dp"
-                    android:minWidth="80dp"
-                    android:minHeight="48dp"
-                    android:paddingHorizontal="12dp"
-                    android:text="@string/launch"
-                    android:textColor="@color/on_primary" />
-            </LinearLayout>
-        </LinearLayout>
-        <!-- 下方卡片区 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="12dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:paddingEnd="8dp"
-            android:weightSum="2">
-            <!-- mods 卡片 -->
-            <LinearLayout
-                android:id="@+id/mod_card"
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="6dp"
-                android:layout_weight="1"
-                android:background="@drawable/card_background"
-                android:orientation="vertical"
-                android:paddingEnd="8dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/mods_title_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/misans"
-                        android:padding="6dp"
-                        android:text="@string/mods_title"
-                        android:textColor="@color/on_surface"
-                        android:textSize="16sp" />
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="1" />
-
-                    <ImageButton
-                        android:id="@+id/add_mod_button"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_marginEnd="6dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:src="@drawable/ic_add" />
-                </LinearLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/mods_recycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:clipToPadding="false"
-                    android:padding="8dp"
-                    android:paddingTop="0dp" />
-            </LinearLayout>
-
+                android:text="Logged In"
+                android:textSize="12sp"
+                android:textColor="#ffffff"
+                />
 
         </LinearLayout>
     </LinearLayout>
+
+
+
+
+
 </LinearLayout>

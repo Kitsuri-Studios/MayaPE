@@ -12,9 +12,9 @@ import io.kitsuri.mayape.databinding.ActivityMainBinding;
 
 public class AnimationHelper {
     public static void prepareInitialStates(ActivityMainBinding binding) {
-        binding.header.setVisibility(View.INVISIBLE);
-        setViewAnimationState(binding.mainCard, -50f);
-        setViewAnimationState(binding.modCard, -30f);
+      //  binding.header.setVisibility(View.INVISIBLE);
+       // setViewAnimationState(binding.mainCard, -50f);
+      //  setViewAnimationState(binding.modCard, -30f);
     }
 
     private static void setViewAnimationState(View view, float translationX) {
@@ -23,9 +23,9 @@ public class AnimationHelper {
     }
 
     public static void runInitializationSequence(ActivityMainBinding binding) {
-        binding.header.postDelayed(() -> startHeaderAnimation(binding.header), 300);
-        binding.mainCard.postDelayed(() -> animateView(binding.mainCard, 600, 1.2f), 500);
-        binding.modCard.postDelayed(() -> animateView(binding.modCard, 400, 1f), 700);
+      //  binding.header.postDelayed(() -> startHeaderAnimation(binding.header), 300);
+      //  binding.mainCard.postDelayed(() -> animateView(binding.mainCard, 600, 1.2f), 500);
+       // binding.modCard.postDelayed(() -> animateView(binding.modCard, 400, 1f), 700);
     }
 
     private static void startHeaderAnimation(View header) {
