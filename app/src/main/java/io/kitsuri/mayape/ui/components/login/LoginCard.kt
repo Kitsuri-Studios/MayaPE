@@ -41,9 +41,9 @@ import io.kitsuri.mayape.R
  fun LoginCard(onLoginClick: () -> Unit) {
     Card(
         modifier = Modifier
-            .width(320.dp)
-            .height(480.dp)
-            .padding(end = 60.dp, top = 20.dp, bottom = 20.dp),
+            .width(260.dp)
+            .height(390.dp)
+          .padding(top = 20.dp, bottom = 20.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color.Black.copy(alpha = 0.3f)
         ),

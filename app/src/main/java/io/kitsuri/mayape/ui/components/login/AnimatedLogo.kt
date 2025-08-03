@@ -62,7 +62,7 @@ import io.kitsuri.mayape.R
         ),
         label = "logo_scale"
     )
-
+    LogoParticles()
     Box(
         modifier = Modifier.size(74.dp),
         contentAlignment = Alignment.Center

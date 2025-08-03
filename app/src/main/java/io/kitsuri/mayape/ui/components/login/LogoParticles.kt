@@ -16,6 +16,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import io.kitsuri.mayape.manager.StarParticle
 import kotlin.math.cos
@@ -25,7 +26,7 @@ import kotlin.random.Random
 @Composable
  fun LogoParticles() {
     val particles = remember {
-        List(8) { index ->
+        List(10) { index ->
             StarParticle(
                 angle = Random.nextFloat() * 360f,
                 distance = Random.nextFloat() * 45f + 35f,
@@ -65,8 +66,8 @@ import kotlin.random.Random
     )
 
     // Centered around logo position (logo is at center of 74dp box, which is at center of card)
-    val logoCenter = 110f // Center X of card
-    val logoCenterY = 180f // Moved up to center around logo area
+    val logoCenter = 40f // Center X of card
+    val logoCenterY = 40f // Moved up to center around logo area
 
     val x = logoCenter + distance * cos(particle.angle * Math.PI / 180).toFloat()
     val y = logoCenterY + distance * sin(particle.angle * Math.PI / 180).toFloat()
@@ -77,7 +78,7 @@ import kotlin.random.Random
             .size(particle.size.dp)
             .background(
                 Color(0xFFF6C13B).copy(alpha = alpha),
-                CircleShape
+                RectangleShape
             )
     )
 }
