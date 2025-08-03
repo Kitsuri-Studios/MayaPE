@@ -1,0 +1,3 @@
+[submodule "app/src/main/cpp/hxo-loader"]
+	path = app/src/main/cpp/hxo-loader
+	url = https://github.com/Kitsuri-Studios/hxo-loader.git

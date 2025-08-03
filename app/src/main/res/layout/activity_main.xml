@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+
+    <Button
+        android:id="@+id/launch_button"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:text="Launch"
+        android:textColor="#FFFFFF"
+        android:background="#0e121a"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="24dp" />
+
+</FrameLayout>
