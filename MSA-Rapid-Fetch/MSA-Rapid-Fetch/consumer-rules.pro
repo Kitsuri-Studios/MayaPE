@@ -1,3 +1,0 @@
--keep class com.kitsuri.msa.rapidfetch.** { *; }
--keep class net.raphimc.minecraftauth.** { *; }
--keep class io.jsonwebtoken.** { *; }
