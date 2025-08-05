@@ -23,5 +23,5 @@ rootProject.name = "MayaPE"
 include(":app")
 include(":launcher")
 include(":stubs")
-//include(":TablerIcons")
-//include(":MSA-Rapid-Fetch:MSA-Rapid-Fetch")
+include(":TablerIcons")
+include(":MSA-Rapid-Fetch:MSA-Rapid-Fetch")
