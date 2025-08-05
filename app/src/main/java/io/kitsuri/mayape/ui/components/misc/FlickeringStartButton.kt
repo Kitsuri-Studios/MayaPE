@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun FlickeringStartButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
+fun FlickeringStartButton(modifier: Modifier = Modifier, onClick: () -> Unit, text: String) {
     var isPressed by remember { mutableStateOf(false) }
     val scale by androidx.compose.animation.core.animateFloatAsState(
         targetValue = if (isPressed) 0.97f else 1f,
@@ -70,7 +70,7 @@ fun FlickeringStartButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
             .clickable(onClick = onClick)
     ) {
         Text(
-            text = "Log In",
+            text = text,
             fontSize = 20.sp,
             fontWeight = FontWeight.Light,
             color = Color.White,
