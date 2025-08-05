@@ -33,6 +33,7 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import io.kitsuri.mayape.R
+import io.kitsuri.mayape.ui.components.HomePageContent
 import io.kitsuri.mayape.ui.components.login.AnimatedLogo
 import io.kitsuri.mayape.ui.components.login.LoginCard
 import io.kitsuri.mayape.ui.components.login.LogoParticles
@@ -54,7 +55,8 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             MayaPETheme {
-                LandingPage()
+//                LandingPage()
+                HomePageContent()
             }
         }
     }
