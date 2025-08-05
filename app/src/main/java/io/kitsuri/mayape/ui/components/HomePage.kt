@@ -1,5 +1,7 @@
-package io.kitsuri.mayape.ui.components
+// Commented was causing compile failure
 
+package io.kitsuri.mayape.ui.components
+/*
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -46,3 +48,4 @@ fun HomePageContent() {
     }
 
 }
+*/

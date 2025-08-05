@@ -51,7 +51,7 @@ android {
 
 
 dependencies {
-    implementation(project(":MSA-Rapid-Fetch"))
+   implementation(project(":MSA-Rapid-Fetch:MSA-Rapid-Fetch"))
     implementation(project(":TablerIcons"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

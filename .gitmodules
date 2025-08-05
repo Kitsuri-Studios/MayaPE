@@ -1,3 +1,9 @@
 [submodule "app/src/main/cpp/hxo-loader"]
 	path = app/src/main/cpp/hxo-loader
 	url = https://github.com/Kitsuri-Studios/hxo-loader.git
+[submodule "MSA-Rapid-Fetch"]
+	path = MSA-Rapid-Fetch
+	url = https://github.com/Kitsuri-Studios/MSA-Rapid-Fetch.git
+[submodule "TablerIcons"]
+	path = TablerIcons
+	url = https://github.com/Kitsuri-Studios/TablerIcons.git
