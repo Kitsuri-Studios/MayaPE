@@ -1,5 +1,7 @@
 package io.kitsuri.mayape.ui.components.landing
 
+import android.app.Activity
+import android.content.Intent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
@@ -35,6 +37,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -43,6 +46,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.kitsuri.mayape.R
+import io.kitsuri.mayape.application.HomeActivity
 import io.kitsuri.mayape.ui.components.login.AnimatedLogo
 import io.kitsuri.mayape.ui.components.misc.FlickeringStartButton
 import kotlinx.coroutines.delay
@@ -281,5 +285,16 @@ fun WelcomeScreenContent(
                 }
             )
         }
+
+        val context = LocalContext.current
+
+        LaunchedEffect(session, animationPhase) {
+            if (session != null && animationPhase == AnimationPhase.TITLE_SPLIT) {
+                delay(500)
+                context.startActivity(Intent(context, HomeActivity::class.java))
+                if (context is Activity) context.finish()
+            }
+        }
+
     }
 }
