@@ -35,12 +35,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TacoClient"
+        android:theme="@style/Theme.Maya"
         tools:targetApi="31">
         <activity
             android:name="io.kitsuri.mayape.application.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.TacoClient"
+            android:theme="@style/Theme.Maya"
             android:screenOrientation="sensorLandscape"
 
             tools:ignore="DiscouragedApi">
@@ -50,11 +50,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".application.HomeActivity"
+            android:exported="true"
+            android:screenOrientation="sensorLandscape"/>
+
+
         <activity
             android:name="io.kitsuri.mayape.manager.Importer"
             android:exported="true"
             android:enableOnBackInvokedCallback="true"
-            android:theme="@style/Theme.TacoClient"
+            android:theme="@style/Theme.Maya"
             tools:ignore="DiscouragedApi"
             tools:targetApi="33">
             <intent-filter>
