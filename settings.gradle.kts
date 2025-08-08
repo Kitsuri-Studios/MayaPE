@@ -21,7 +21,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "MayaPE"
 include(":app")
-include(":launcher")
-include(":stubs")
+include(":LaunchCore:launcher")
+include(":LaunchCore:stubs")
 include(":TablerIcons")
 include(":MSA-Rapid-Fetch:MSA-Rapid-Fetch")
