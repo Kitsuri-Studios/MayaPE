@@ -18,7 +18,7 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
 )
 
 add_subdirectory(hxo-loader)
-
+add_subdirectory(ELFChecker)
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
         include  # Points to cpp/include/
 )
