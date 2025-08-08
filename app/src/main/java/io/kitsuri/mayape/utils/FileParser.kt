@@ -2,7 +2,6 @@ package io.kitsuri.mayape.utils
 
 class FileParser {
     external fun ElfCheck(filepath: String?): Boolean
-
     companion object {
         init {
             try {
@@ -12,7 +11,6 @@ class FileParser {
             }
         }
     }
-
     fun elfWrap(filepath: String?): Boolean {
         require(filepath != null) { "Filepath cannot be null" }
         return ElfCheck(filepath)
