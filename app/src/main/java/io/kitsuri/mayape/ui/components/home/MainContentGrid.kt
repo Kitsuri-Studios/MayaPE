@@ -45,7 +45,8 @@ fun MainContentGrid(
     onModsClick: () -> Unit,
     onRealmsClick: () -> Unit,
     onTexturePacksClick: () -> Unit,
-    onStatisticsClick: () -> Unit
+    onStatisticsClick: () -> Unit,
+    onLaunchGame: () -> Unit
 ) {
     val font = FontFamily(Font(R.font.light, FontWeight.Normal))
     Row(
@@ -114,7 +115,7 @@ fun MainContentGrid(
                     .fillMaxSize()
                     .clip(RoundedCornerShape(16.dp))
                     .border(0.1.dp, Color.White.copy(0.3f), RoundedCornerShape(16.dp))
-                    .clickable { /* Handle card click */ },
+                    .clickable { /* Handle card click if needed */ },
                 color = Color.White.copy(alpha = 0.1f)
             ) {
                 Column(
@@ -149,7 +150,7 @@ fun MainContentGrid(
                             .fillMaxWidth()
                             .height(60.dp)
                             .clip(RoundedCornerShape(16.dp))
-                            .clickable { /* Handle start game */ },
+                            .clickable { onLaunchGame() }, // Attach the callback here
                         color = Color.White.copy(alpha = 0.15f)
                     ) {
                         Row(

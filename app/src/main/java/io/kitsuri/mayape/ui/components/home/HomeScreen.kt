@@ -36,10 +36,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import io.kitsuri.mayape.R
 
-
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(onLaunchGame: () -> Unit) {
     val currentScreen = remember { mutableStateOf(Screen.HOME) }
     val font = FontFamily(Font(R.font.light, FontWeight.Normal))
 
@@ -114,7 +113,8 @@ fun HomeScreen() {
                         onModsClick = { currentScreen.value = Screen.MODS },
                         onRealmsClick = { currentScreen.value = Screen.REALMS },
                         onTexturePacksClick = { currentScreen.value = Screen.TEXTURE_PACKS },
-                        onStatisticsClick = { currentScreen.value = Screen.STATISTICS }
+                        onStatisticsClick = { currentScreen.value = Screen.STATISTICS },
+                        onLaunchGame = onLaunchGame // Pass the callback to MainContentGrid
                     )
                     Screen.MODS -> ModsContent(onBackClick = { currentScreen.value = Screen.HOME }, font = font)
                     Screen.REALMS -> RealmsContent(onBackClick = { currentScreen.value = Screen.HOME }, font = font)

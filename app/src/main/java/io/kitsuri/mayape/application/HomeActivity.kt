@@ -7,7 +7,6 @@ import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.material3.Button
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -31,13 +30,12 @@ class HomeActivity : ComponentActivity() {
 
         setContent {
             MayaTheme {
-                HomeScreen()
-               // Button(onClick = {launchMinecraft()}) { }
+                HomeScreen(onLaunchGame = { launchGame() })
             }
         }
-
     }
-    fun launchMinecraft() {
+
+    private fun launchMinecraft() {
         launcherManager.prepareLauncher { apks ->
             startActivity(Intent().apply {
                 setClassName(this@HomeActivity, "com.mojang.minecraftpe.Launcher")
@@ -47,20 +45,8 @@ class HomeActivity : ComponentActivity() {
             finish()
         }
     }
+
+    fun launchGame() {
+        launchMinecraft()
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
