@@ -1,7 +1,11 @@
 package io.kitsuri.mayape.utils
 
+import android.content.Context
 import android.content.res.AssetManager
+import android.net.Uri
+import android.provider.OpenableColumns
 import java.io.File
+import java.io.FileOutputStream
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 import java.util.zip.ZipEntry
@@ -41,4 +45,20 @@ object FileUtils {
         }
         return targetFile
     }
+
+    fun uriToFilePath(context: Context, uri: Uri): String? {
+        val fileName = context.contentResolver.query(uri, null, null, null, null)?.use { cursor ->
+            val nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+            cursor.moveToFirst()
+            cursor.getString(nameIndex)
+        } ?: return null
+
+        val inputStream = context.contentResolver.openInputStream(uri) ?: return null
+        val tempFile = File(context.cacheDir, fileName)
+        FileOutputStream(tempFile).use { output ->
+            inputStream.copyTo(output)
+        }
+        return tempFile.absolutePath
+    }
+
 }
