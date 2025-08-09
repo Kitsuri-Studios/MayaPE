@@ -3,6 +3,7 @@ package io.kitsuri.mayape.manager
 
 import android.content.Context
 import android.content.pm.PackageManager
+import io.kitsuri.mayape.models.TerminalViewModel
 
 import io.kitsuri.mayape.utils.LauncherException
 import io.kitsuri.mayape.utils.McInfo
@@ -11,7 +12,7 @@ import java.util.concurrent.Executors
 /**
  * Manages the preparation and loading of Minecraft launcher resources
  */
-class LauncherManager(private val context: Context) {
+class LauncherManager(private val context: Context, private val logger: TerminalViewModel) {
 
     private val executor = Executors.newSingleThreadExecutor()
 
@@ -23,8 +24,8 @@ class LauncherManager(private val context: Context) {
         executor.execute {
             try {
                 val mcInfo = getMinecraftInfo()
-                val dexHandler = DexHandler(context)
-                val nativeHandler = NativeLibraryHandler(context)
+                val dexHandler = DexHandler(context, logger)
+                val nativeHandler = NativeLibraryHandler(context, logger)
 
                 // Handle native libraries
                 nativeHandler.setupNativeLibraries(mcInfo)

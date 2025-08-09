@@ -36,11 +36,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import io.kitsuri.mayape.R
 
+
+
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun HomeScreen(onLaunchGame: () -> Unit) {
     val currentScreen = remember { mutableStateOf(Screen.HOME) }
     val font = FontFamily(Font(R.font.light, FontWeight.Normal))
+    val isTerminalVisible = remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -87,7 +90,8 @@ fun HomeScreen(onLaunchGame: () -> Unit) {
                 ) {
                     TopBarContent(
                         isHomeScreen = currentScreen.value == Screen.HOME,
-                        onBackClick = { currentScreen.value = Screen.HOME }
+                        onBackClick = { currentScreen.value = Screen.HOME },
+                        onTerminalClick = { isTerminalVisible.value = true } // Toggle terminal visibility
                     )
                 }
             }
@@ -114,7 +118,7 @@ fun HomeScreen(onLaunchGame: () -> Unit) {
                         onRealmsClick = { currentScreen.value = Screen.REALMS },
                         onTexturePacksClick = { currentScreen.value = Screen.TEXTURE_PACKS },
                         onStatisticsClick = { currentScreen.value = Screen.STATISTICS },
-                        onLaunchGame = onLaunchGame // Pass the callback to MainContentGrid
+                        onLaunchGame = onLaunchGame
                     )
                     Screen.MODS -> ModsContent(onBackClick = { currentScreen.value = Screen.HOME }, font = font)
                     Screen.REALMS -> RealmsContent(onBackClick = { currentScreen.value = Screen.HOME }, font = font)
@@ -123,5 +127,11 @@ fun HomeScreen(onLaunchGame: () -> Unit) {
                 }
             }
         }
+
+        // Add the terminal overlay
+        TerminalOverlay(
+            isVisible = isTerminalVisible.value,
+            onClose = { isTerminalVisible.value = false }
+        )
     }
 }

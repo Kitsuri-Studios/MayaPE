@@ -8,44 +8,56 @@ import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import io.kitsuri.mayape.manager.LauncherManager
+import io.kitsuri.mayape.models.TerminalViewModel
 import io.kitsuri.mayape.ui.components.home.HomeScreen
 import io.kitsuri.mayape.ui.theme.MayaTheme
 import io.kitsuri.mayape.utils.LibraryUtils
 
 class HomeActivity : ComponentActivity() {
-    private val launcherManager = LauncherManager(this)
+    val logger: TerminalViewModel by viewModels()
+    private lateinit var launcherManager: LauncherManager
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        launcherManager = LauncherManager(this, logger)
         val mediaPath = LibraryUtils.getMediaDirectoryPath(this)
         Log.d("HomeActivity", "Media directory will be: $mediaPath")
+        logger.addLog("Main", "HOME","Media directory will be: $mediaPath" )
         // Initialize files with error checking
         val initSuccess = LibraryUtils.initializeFiles(this)
         if (!initSuccess) {
             Log.e("HomeActivity", "Failed to initialize files")
+            logger.addLog("Main", "HOME","Failed to initialize files" )
             // We might want to show an error dialog here But lol Whatever This is very Unlikely to happen lmao
         } else {
             Log.d("HomeActivity", "Files initialized successfully")
+            logger.addLog("Main", "HOME","Files initialized successfully" )
         }
         // Refresh mods - this will sync the JSON file with actual files in the directory
         // and preserve user preferences for enabled/disabled states
         val refreshSuccess = LibraryUtils.refreshMods(this)
         if (refreshSuccess) {
             Log.d("HomeActivity", "Mods refreshed successfully")
+            logger.addLog("Main", "HOME","Mods refreshed successfully" )
             val currentMods = LibraryUtils.getAllMods(this)
             Log.d("HomeActivity", "Current mods after refresh: $currentMods")
+            logger.addLog("Main", "HOME","Current mods: $currentMods" )
         } else {
             Log.w("HomeActivity", "Failed to refresh mods")
+            logger.addLog("Main", "HOME","Failed to refresh mods" )
         }
         // Check what files exist
         val fileStatus = LibraryUtils.checkFilesExist(this)
         Log.d("HomeActivity", "File status: $fileStatus")
-
+        logger.addLog("Main", "HOME","File status: $fileStatus" )
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         WindowCompat.setDecorFitsSystemWindows(window, false)
         val controller = WindowInsetsControllerCompat(window, window.decorView)
@@ -67,11 +79,14 @@ class HomeActivity : ComponentActivity() {
         // Refresh mods every time the app comes back to foreground
         // This ensures the mod list is always up to date if files were added/removed externally
         Log.d("HomeActivity", "App resumed, refreshing mods...")
+        logger.addLog("Main", "HOME","App resumed, refreshing mods..." )
         val refreshSuccess = LibraryUtils.refreshMods(this)
         if (refreshSuccess) {
             Log.d("HomeActivity", "Mods refreshed on resume")
+            logger.addLog("Main", "HOME","Mods refreshed on resume" )
         } else {
             Log.w("HomeActivity", "Failed to refresh mods on resume")
+            logger.addLog("Main", "HOME","Failed to refresh mods on resume" )
         }
     }
 

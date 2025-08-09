@@ -6,6 +6,7 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -29,7 +30,10 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.activity.viewModels
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import io.kitsuri.mayape.models.TerminalViewModel
 import io.kitsuri.mayape.utils.FileParser
 import io.kitsuri.mayape.utils.LibraryUtils
 import kotlinx.coroutines.launch
@@ -40,7 +44,7 @@ import java.io.File
 fun ModsContent(onBackClick: () -> Unit, font: FontFamily) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
-
+    val logger: TerminalViewModel = viewModel()
     // State management
     val showInvalidModDialog = remember { mutableStateOf(false) }
     var modsList by remember { mutableStateOf<Map<String, Boolean>>(emptyMap()) }
@@ -65,8 +69,8 @@ fun ModsContent(onBackClick: () -> Unit, font: FontFamily) {
                 onInvalidMod = { showInvalidModDialog.value = true },
                 onModAdded = { fileName ->
                     // Show success toast
-                    Toast.makeText(context, "Mod '$fileName' added successfully!", Toast.LENGTH_SHORT).show()
-
+                    Toast.makeText(context, "Mod $fileName added successfully!", Toast.LENGTH_SHORT).show()
+                    logger.addLog("Main", "Mods Manager","$fileName Removed" )
                     // Refresh mod list
                     coroutineScope.launch {
                         isRefreshing = true
@@ -74,7 +78,8 @@ fun ModsContent(onBackClick: () -> Unit, font: FontFamily) {
                         modsList = LibraryUtils.getAllMods(context) ?: emptyMap()
                         isRefreshing = false
                     }
-                }
+                },
+                logger = logger
             )
         }
     }
@@ -190,8 +195,10 @@ fun ModsContent(onBackClick: () -> Unit, font: FontFamily) {
                                                 remove(modName)
                                             }
                                             Toast.makeText(context, "Mod '$modName' deleted", Toast.LENGTH_SHORT).show()
+                                            logger.addLog("Main", "Mods Manager","$modName Removed" )
                                         } else {
                                             Toast.makeText(context, "Failed to delete mod", Toast.LENGTH_SHORT).show()
+                                            logger.addLog("Main", "Mods Manager","Failed to delete mod" )
                                         }
                                     }
                                 }
@@ -368,9 +375,12 @@ fun handleFileSelection(
     context: Context,
     uri: Uri,
     onInvalidMod: () -> Unit,
-    onModAdded: (String) -> Unit
+    onModAdded: (String) -> Unit,
+    logger: TerminalViewModel
 ) {
+
     android.util.Log.d("ModsContent", "Starting file selection handling")
+    logger.addLog("Main", "File Manager","Starting file selection handling" )
 
     val fileParser = FileParser()
     val fileName = context.contentResolver.query(uri, null, null, null, null)?.use { cursor ->
@@ -381,14 +391,16 @@ fun handleFileSelection(
 
     if (fileName == null) {
         android.util.Log.e("ModsContent", "Could not get filename from URI")
+        logger.addLog("Main", "File Manager","Could not get filename from URI" )
         onInvalidMod()
         return
     }
 
     android.util.Log.d("ModsContent", "Selected file: $fileName")
-
+    logger.addLog("Main", "File Manager","Selected file: $fileName" )
     if (!fileName.endsWith(".so") && !fileName.endsWith(".hxo")) {
         android.util.Log.w("ModsContent", "Invalid file extension: $fileName")
+        logger.addLog("Main", "File Manager","Invalid file extension: $fileName" )
         onInvalidMod()
         return
     }
@@ -396,56 +408,65 @@ fun handleFileSelection(
     // Create temp file
     val tempFile = File(context.cacheDir, fileName)
     android.util.Log.d("ModsContent", "Temp file path: ${tempFile.absolutePath}")
-
+    logger.addLog("Main", "File Manager","Temp file path: ${tempFile.absolutePath}" )
     try {
         // Copy content from URI to temp file
         context.contentResolver.openInputStream(uri)?.use { input ->
             tempFile.outputStream().use { output ->
                 val bytesTransferred = input.copyTo(output)
                 android.util.Log.d("ModsContent", "Transferred $bytesTransferred bytes to temp file")
+                logger.addLog("Main", "File Manager","Transferred $bytesTransferred bytes to temp file" )
             }
         }
 
         if (!tempFile.exists() || tempFile.length() == 0L) {
             android.util.Log.e("ModsContent", "Temp file creation failed or is empty")
+            logger.addLog("Main", "File Manager","Temp file creation failed or is empty" )
             onInvalidMod()
             return
         }
 
         // Validate file with FileParser
         android.util.Log.d("ModsContent", "Validating file with FileParser")
+        logger.addLog("Main", "ELF Manager","Validating ELF..." )
         if (!fileParser.elfWrap(tempFile.absolutePath)) {
             android.util.Log.w("ModsContent", "File failed ELF validation")
+            logger.addLog("Main", "ELF Manager","File failed ELF validation" )
             onInvalidMod()
             tempFile.delete()
             return
         }
-
+        logger.addLog("Main", "ELF Manager","All Checks passed" )
         // Copy file to modules directory
         android.util.Log.d("ModsContent", "Copying to modules directory")
+        logger.addLog("Main", "File Manager","Saving ${tempFile.absolutePath} To Modules Dir" )
         val copiedFile = LibraryUtils.copyModFile(context, tempFile, fileName)
         if (copiedFile == null) {
             android.util.Log.e("ModsContent", "Failed to copy mod file")
+            logger.addLog("Main", "File Manager","Failed to save mod file" )
             onInvalidMod()
             tempFile.delete()
             return
         }
 
         // Update modules.json
+        logger.addLog("Main", "Mod Manager","Updating modules.json" )
         android.util.Log.d("ModsContent", "Updating modules.json")
         val updateSuccess = LibraryUtils.updateModulesJson(context, fileName)
         if (!updateSuccess) {
             android.util.Log.e("ModsContent", "Failed to update modules.json")
+            logger.addLog("Main", "Mod Manager","Failed to update modules.json" )
             onInvalidMod()
             tempFile.delete()
             return
         }
-
+        logger.addLog("Main", "Mod Manager","Mod installation completed successfully" )
         android.util.Log.d("ModsContent", "Mod installation completed successfully")
         onModAdded(fileName)
 
     } catch (e: Exception) {
         android.util.Log.e("ModsContent", "Error handling file selection", e)
+        logger.addLog("Fatal", "Mod Manager","Error handling file selection" )
         onInvalidMod()
     } finally {
         // Clean up temp file

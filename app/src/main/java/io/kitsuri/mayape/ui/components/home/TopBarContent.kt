@@ -21,6 +21,7 @@ import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Download
 import androidx.compose.material.icons.outlined.HelpOutline
 import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.outlined.Terminal
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -35,7 +36,11 @@ import io.kitsuri.mayape.R
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun TopBarContent(isHomeScreen: Boolean, onBackClick: () -> Unit) {
+fun TopBarContent(
+    isHomeScreen: Boolean,
+    onBackClick: () -> Unit,
+    onTerminalClick: () -> Unit
+) {
     val font = FontFamily(Font(R.font.light, FontWeight.Normal))
     Row(
         modifier = Modifier
@@ -98,6 +103,11 @@ fun TopBarContent(isHomeScreen: Boolean, onBackClick: () -> Unit) {
                             .size(38.dp)
                             .padding(start = 8.dp),
                         onClick = { /* Handle profile click */ }
+                    )
+                    AnimatedIcon(
+                        imageVector = Icons.Outlined.Terminal,
+                        contentDescription = "Terminal",
+                        onClick = onTerminalClick
                     )
                 }
             } else {
