@@ -27,7 +27,7 @@ object LibraryUtils {
     /**
      * Gets the media directory for the app: /Android/media/APP_ID/
      */
-    private fun getMediaDirectory(context: Context): File? {
+     fun getMediaDirectory(context: Context): File? {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             context.getExternalMediaDirs().firstOrNull()
         } else {
