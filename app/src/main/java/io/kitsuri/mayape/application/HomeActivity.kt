@@ -13,6 +13,7 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import io.kitsuri.mayape.manager.LauncherManager
+import io.kitsuri.mayape.manager.NativeManager
 import io.kitsuri.mayape.manager.SettingsManager
 import io.kitsuri.mayape.models.TerminalViewModel
 import io.kitsuri.mayape.ui.components.home.HomeScreen
@@ -23,6 +24,8 @@ class HomeActivity : ComponentActivity() {
     private val logger: TerminalViewModel by viewModels()
     private lateinit var settingsManager: SettingsManager
     private lateinit var launcherManager: LauncherManager
+
+
 
     private val settingsChangeListener = object : SettingsManager.SettingsChangeListener {
         override fun onSettingChanged(key: String, value: Any) {
@@ -48,7 +51,7 @@ class HomeActivity : ComponentActivity() {
         val mediaPath = LibraryUtils.getMediaDirectoryPath(this)
         Log.d("HomeActivity", "Media directory will be: $mediaPath")
         logger.addLog("Main", "HOME", "Media directory will be: $mediaPath")
-
+        NativeManager.initLogger(logger)
         val initSuccess = LibraryUtils.initializeFiles(this, settingsManager, logger)
         LibraryUtils.registerIniSettings(settingsManager = settingsManager, logger)
 
