@@ -5,6 +5,8 @@ import android.content.SharedPreferences
 import android.os.Build
 import android.os.Environment
 import android.util.Log
+import io.kitsuri.mayape.manager.SettingsManager
+import io.kitsuri.mayape.models.TerminalViewModel
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.io.File
@@ -18,7 +20,6 @@ object LibraryUtils {
     private const val PREFS_NAME = "mod_preferences"
     private const val PREFS_MOD_PREFIX = "mod_"
 
-    // Formatted JSON instance for pretty printing
     private val prettyJson = Json {
         prettyPrint = true
         encodeDefaults = true
@@ -27,7 +28,7 @@ object LibraryUtils {
     /**
      * Gets the media directory for the app: /Android/media/APP_ID/
      */
-     fun getMediaDirectory(context: Context): File? {
+    fun getMediaDirectory(context: Context): File? {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             context.getExternalMediaDirs().firstOrNull()
         } else {
@@ -57,7 +58,9 @@ object LibraryUtils {
     private fun saveModState(context: Context, fileName: String, enabled: Boolean) {
         val prefs = getModPreferences(context)
         prefs.edit().putBoolean(PREFS_MOD_PREFIX + fileName, enabled).apply()
+
         Log.d(TAG, "Saved mod state: $fileName = $enabled")
+
     }
 
     /**
@@ -77,7 +80,47 @@ object LibraryUtils {
         Log.d(TAG, "Removed mod state from preferences: $fileName")
     }
 
-    fun initializeFiles(context: Context): Boolean {
+    /**
+     * Register HXO.ini settings with SettingsManager
+     */
+    fun registerIniSettings(settingsManager: SettingsManager, logger: TerminalViewModel) {
+        settingsManager.addSwitch(
+            key = "hxo_enabled",
+            title = "Enable HXO Loader",
+            defaultValue = true,
+            description = "Enable or disable the HXO loader"
+        )
+        settingsManager.addTextField(
+            key = "hxo_dir",
+            title = "HXO Modules Directory",
+            defaultValue = MODULES_DIR,
+            description = "Relative directory for .hxo files"
+        )
+        settingsManager.addSlider(
+            key = "hxo_sleep",
+            title = "Load Delay",
+            defaultValue = 4f,
+            minValue = 0f,
+            maxValue = 10f,
+            suffix = "s",
+            description = "Seconds to wait before loading HXO hacks"
+        )
+        settingsManager.addSwitch(
+            key = "hxo_unload",
+            title = "Unload After Execution",
+            defaultValue = false,
+            description = "(Experimental) Unload library after execution"
+        )
+        settingsManager.addInfo("warning_meow", "DO NOT TOUCH THIS IF YOU DON'T KNOW WHAT YOU ARE DOING")
+
+        settingsManager.addTextField("hxo_ep","Mods Entry Point","_init_hxo")
+        logger.addLog("Main", "LibUtil","HXO Settings Registered" )
+    }
+
+    /**
+     * Write HXO.ini file based on settings from SettingsManager
+     */
+     fun writeIniFile(context: Context, settingsManager: SettingsManager): Boolean {
         return try {
             val mediaDir = getMediaDirectory(context)
             if (mediaDir == null) {
@@ -85,14 +128,64 @@ object LibraryUtils {
                 return false
             }
 
-            Log.d(TAG, "Using media directory: ${mediaDir.absolutePath}")
+            val hxoIniFile = File(mediaDir, HXO_INI)
+            Log.d(TAG, "Writing HXO.ini to: ${hxoIniFile.absolutePath}")
 
+            val iniContent = buildString {
+                appendLine(";")
+                appendLine("; HXO Configuration")
+                appendLine(";")
+                appendLine("")
+                appendLine("[HXO]")
+                appendLine("hxo=${if (settingsManager.getBooleanValue("hxo_enabled", true)) "1" else "0"}")
+                appendLine("hxo_dir=${settingsManager.getStringValue("hxo_dir", MODULES_DIR)}")
+                appendLine("sleep=${settingsManager.getFloatValue("hxo_sleep", 4f).toInt()}")
+                appendLine("UnloadAfterExecution=${if (settingsManager.getBooleanValue("hxo_unload", false)) "1" else "0"}")
+                appendLine("")
+                appendLine(";EXPERIMENTAL: DON'T MODIFY")
+                appendLine(";unless you really need to")
+                appendLine("[1337]")
+                appendLine("EP=${settingsManager.getStringValue("hxo_ep", "_init_hxo")}")
+            }
+
+            hxoIniFile.writeText(iniContent)
+            Log.d(TAG, "HXO.ini written successfully")
+
+            if (!hxoIniFile.exists()) {
+                Log.e(TAG, "HXO.ini file was not created after writing")
+                return false
+            }
+
+            true
+        } catch (e: IOException) {
+            Log.e(TAG, "IOException while writing HXO.ini", e)
+            false
+        } catch (e: Exception) {
+            Log.e(TAG, "Unexpected error while writing HXO.ini", e)
+            false
+        }
+    }
+
+    fun initializeFiles(context: Context, settingsManager: SettingsManager, logger: TerminalViewModel): Boolean {
+
+        return try {
+            val mediaDir = getMediaDirectory(context)
+            if (mediaDir == null) {
+                Log.e(TAG, "Media directory is not available")
+                logger.addLog("Main", "LibUtil","Media directory is not available" )
+                return false
+            }
+
+            Log.d(TAG, "Using media directory: ${mediaDir.absolutePath}")
+            logger.addLog("Main", "LibUtil","Using media directory: ${mediaDir.absolutePath}" )
             // Ensure media directory exists
             if (!mediaDir.exists()) {
                 val created = mediaDir.mkdirs()
                 Log.d(TAG, "Media directory created: $created")
+                logger.addLog("Main", "LibUtil","Media directory created: $created" )
                 if (!created) {
                     Log.e(TAG, "Failed to create media directory")
+                    logger.addLog("Main", "LibUtil","Failed to create media directory" )
                     return false
                 }
             }
@@ -100,85 +193,60 @@ object LibraryUtils {
             // Create modules directory
             val modulesDir = File(mediaDir, MODULES_DIR)
             Log.d(TAG, "Modules directory path: ${modulesDir.absolutePath}")
-
+            logger.addLog("Main", "LibUtil","Modules directory path: ${modulesDir.absolutePath}" )
             if (!modulesDir.exists()) {
                 val created = modulesDir.mkdirs()
                 Log.d(TAG, "Modules directory created: $created")
+                logger.addLog("Main", "LibUtil","Modules directory created: $created" )
                 if (!created) {
                     Log.e(TAG, "Failed to create modules directory")
+                    logger.addLog("Main", "LibUtil","Failed to create modules directory" )
                     return false
                 }
             } else {
                 Log.d(TAG, "Modules directory already exists")
+                logger.addLog("Main", "LibUtil","Modules directory already exists" )
             }
 
-            // Copy HXO.ini from assets
-            val hxoIniFile = File(mediaDir, HXO_INI)
-            Log.d(TAG, "HXO.ini file path: ${hxoIniFile.absolutePath}")
-
-            if (!hxoIniFile.exists()) {
-                Log.d(TAG, "HXO.ini doesn't exist, attempting to copy from assets")
-
-                try {
-                    // Check if asset exists first
-                    val assetList = context.assets.list("") ?: emptyArray()
-                    Log.d(TAG, "Available assets: ${assetList.joinToString()}")
-
-                    if (!assetList.contains(HXO_INI)) {
-                        Log.e(TAG, "HXO.ini not found in assets")
-                        return false
-                    }
-
-                    context.assets.open(HXO_INI).use { input ->
-                        hxoIniFile.outputStream().use { output ->
-                            val bytesTransferred = input.copyTo(output)
-                            Log.d(TAG, "HXO.ini copied successfully, bytes: $bytesTransferred")
-                        }
-                    }
-
-                    if (!hxoIniFile.exists()) {
-                        Log.e(TAG, "HXO.ini file was not created after copying")
-                        return false
-                    }
-
-                } catch (e: IOException) {
-                    Log.e(TAG, "IOException while copying HXO.ini", e)
-                    return false
-                } catch (e: Exception) {
-                    Log.e(TAG, "Unexpected error while copying HXO.ini", e)
-                    return false
-                }
-            } else {
-                Log.d(TAG, "HXO.ini already exists")
+            // Write HXO.ini from settings
+            if (!writeIniFile(context, settingsManager)) {
+                Log.e(TAG, "Failed to write HXO.ini")
+                logger.addLog("Main", "LibUtil","Failed to write HXO.ini" )
+                return false
             }
 
             // Initialize modules.json
             val modulesJsonFile = File(mediaDir, MODULES_JSON)
             Log.d(TAG, "modules.json file path: ${modulesJsonFile.absolutePath}")
-
+            logger.addLog("Main", "LibUtil","modules.json file path: ${modulesJsonFile.absolutePath}" )
             if (!modulesJsonFile.exists()) {
                 try {
                     val emptyJson = prettyJson.encodeToString(emptyMap<String, Boolean>())
                     modulesJsonFile.writeText(emptyJson)
                     Log.d(TAG, "modules.json created successfully")
-
+                    logger.addLog("Main", "LibUtil","modules.json created successfully" )
                     if (!modulesJsonFile.exists()) {
                         Log.e(TAG, "modules.json was not created after writing")
+                        logger.addLog("Main", "LibUtil","modules.json was not created after writing" )
                         return false
                     }
                 } catch (e: Exception) {
                     Log.e(TAG, "Error creating modules.json", e)
+                    logger.addLog("Main", "LibUtil","Error creating modules.json: $e" )
                     return false
                 }
             } else {
                 Log.d(TAG, "modules.json already exists")
+                logger.addLog("Main", "LibUtil","modules.json already exists" )
             }
 
             Log.d(TAG, "File initialization completed successfully in media directory")
+            logger.addLog("Main", "LibUtil","File initialization completed successfully in media directory" )
             true
 
         } catch (e: Exception) {
             Log.e(TAG, "Unexpected error during file initialization", e)
+            logger.addLog("Main", "LibUtil","Unexpected error during file initialization: $e" )
             false
         }
     }
