@@ -1,4 +1,5 @@
 #include "maya.h"
+#include "client_logger.h"
 
 jint InitializeMaya() {
     // Comment or uncomment the following line to enable/disable ImGui rendering
@@ -10,5 +11,6 @@ jint InitializeMaya() {
         return JNI_ERR;
     }
 
+    ClientLog("Native","Maya","Logger Setup Success");
     return JNI_OK;
 }
