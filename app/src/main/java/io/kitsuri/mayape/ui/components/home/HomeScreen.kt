@@ -19,8 +19,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -29,21 +32,31 @@ import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import io.kitsuri.mayape.R
-
+import io.kitsuri.mayape.manager.SettingsManager
+import io.kitsuri.mayape.ui.overlay.SettingsOverlay
+import io.kitsuri.mayape.ui.overlay.TerminalOverlay
 
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun HomeScreen(onLaunchGame: () -> Unit) {
+fun HomeScreen(
+    onLaunchGame: () -> Unit,
+    settingsManager: SettingsManager
+) {
     val currentScreen = remember { mutableStateOf(Screen.HOME) }
     val font = FontFamily(Font(R.font.light, FontWeight.Normal))
     val isTerminalVisible = remember { mutableStateOf(false) }
+    val isSettingsVisible = remember { mutableStateOf(false) }
+
+
+
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -91,7 +104,8 @@ fun HomeScreen(onLaunchGame: () -> Unit) {
                     TopBarContent(
                         isHomeScreen = currentScreen.value == Screen.HOME,
                         onBackClick = { currentScreen.value = Screen.HOME },
-                        onTerminalClick = { isTerminalVisible.value = true } // Toggle terminal visibility
+                        onTerminalClick = { isTerminalVisible.value = true },
+                        onSettingsClick = { isSettingsVisible.value = true }
                     )
                 }
             }
@@ -128,10 +142,16 @@ fun HomeScreen(onLaunchGame: () -> Unit) {
             }
         }
 
-        // Add the terminal overlay
         TerminalOverlay(
             isVisible = isTerminalVisible.value,
             onClose = { isTerminalVisible.value = false }
+        )
+
+
+        SettingsOverlay(
+            isVisible = isSettingsVisible.value,
+            onClose = { isSettingsVisible.value = false },
+            settingsManager = settingsManager
         )
     }
 }
