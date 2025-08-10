@@ -1,6 +1,5 @@
-package io.kitsuri.mayape.ui.components.home
+package io.kitsuri.mayape.ui.overlay
 
-import android.os.Environment
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
