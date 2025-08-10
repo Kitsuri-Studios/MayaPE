@@ -19,6 +19,7 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
 
 add_subdirectory(hxo-loader)
 add_subdirectory(ELFChecker)
+add_subdirectory(Shoki)
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
         include  # Points to cpp/include/
 )
@@ -37,6 +38,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
         EGL
         GLESv3  # MCPE uses GLES3
         log
+        Shoki
 )
 
 # Explicitly enable GLES3 for ImGui
