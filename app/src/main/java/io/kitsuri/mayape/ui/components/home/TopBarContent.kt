@@ -39,7 +39,8 @@ import io.kitsuri.mayape.R
 fun TopBarContent(
     isHomeScreen: Boolean,
     onBackClick: () -> Unit,
-    onTerminalClick: () -> Unit
+    onTerminalClick: () -> Unit,
+    onSettingsClick: () -> Unit
 ) {
     val font = FontFamily(Font(R.font.light, FontWeight.Normal))
     Row(
@@ -94,7 +95,7 @@ fun TopBarContent(
                     AnimatedIcon(
                         imageVector = Icons.Outlined.Settings,
                         contentDescription = "Settings",
-                        onClick = { /* Handle settings click */ }
+                        onClick = onSettingsClick
                     )
                     AnimatedIcon(
                         imageVector = Icons.Outlined.AccountCircle,
@@ -109,6 +110,7 @@ fun TopBarContent(
                         contentDescription = "Terminal",
                         onClick = onTerminalClick
                     )
+
                 }
             } else {
                 AnimatedIcon(
