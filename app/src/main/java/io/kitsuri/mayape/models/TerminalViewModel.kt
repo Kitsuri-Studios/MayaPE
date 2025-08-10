@@ -37,8 +37,9 @@ class TerminalViewModel : ViewModel() {
             }
             val sanitizedFileName = if (fileName.endsWith(".txt")) fileName else "$fileName.txt"
             val file = File(mediaDir, sanitizedFileName)
-            file.writeText(_logs.value.joinToString("\n"))
-            addLog("Main", "INFO", "Logs exported to $sanitizedFileName")
+
+            file.appendText(_logs.value.joinToString("\n") + "\n")
+            // addLog("Main", "INFO", "Logs appended to $sanitizedFileName")
         } catch (e: Exception) {
             addLog("Main", "ERROR", "Failed to export logs: ${e.message}")
         }

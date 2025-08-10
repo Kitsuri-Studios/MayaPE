@@ -1,5 +1,6 @@
 package io.kitsuri.mayape.ui.overlay
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
@@ -54,8 +55,7 @@ import io.kitsuri.mayape.models.TerminalViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-
-
+import java.util.UUID
 
 @Composable
 fun TerminalOverlay(
@@ -71,25 +71,29 @@ fun TerminalOverlay(
     val showExportDialog = remember { mutableStateOf(false) }
     val exportFileName = remember {
         mutableStateOf(
-            "maya_log_${
-                SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-            }.txt"
+            "maya_log_${SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())}.txt"
         )
     }
+
+    val sessionId = remember { UUID.randomUUID().toString().replace("-", "") }
+    val autoSaveFileName = remember { "maya_log_session_$sessionId.txt" }
     val semiDarkBlue = Color(0xFF3287F6)
+
+    LaunchedEffect(logs, autoSaveEnabled.value) {
+        if (autoSaveEnabled.value && logs.isNotEmpty()) {
+            try {
+                viewModel.exportLogs(context, autoSaveFileName)
+            } catch (e: Exception) {
+              Log.e("Logger", "Auto Save failed:", e)
+            }
+        }
+    }
 
     LaunchedEffect(logs) {
         if (autoScrollEnabled.value) {
             scrollState.animateScrollTo(scrollState.maxValue, tween(300))
         }
-        if (autoSaveEnabled.value) {
-            viewModel.exportLogs(
-                context,
-                exportFileName.value
-            )
-        }
     }
-
 
     AnimatedVisibility(
         visible = isVisible,
@@ -126,8 +130,7 @@ fun TerminalOverlay(
                         text = "Client log",
                         color = Color.White,
                         fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold
-                    )
+                        fontWeight = FontWeight.Bold)
                     IconButton(onClick = onClose) {
                         Icon(
                             imageVector = Icons.Outlined.Close,
@@ -217,7 +220,6 @@ fun TerminalOverlay(
                             Text("Export Log")
                         }
                     }
-                    // NEW: Auto Save Log toggle
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                         verticalAlignment = Alignment.CenterVertically
