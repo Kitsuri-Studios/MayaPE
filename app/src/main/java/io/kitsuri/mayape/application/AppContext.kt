@@ -1,6 +1,7 @@
 package io.kitsuri.mayape.application
 
 import android.app.Application
+import io.kitsuri.mayape.manager.NativeManager
 import io.kitsuri.mayape.models.TerminalViewModel
 
 class AppContext : Application() {

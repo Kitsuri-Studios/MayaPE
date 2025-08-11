@@ -17,14 +17,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.kitsuri.mayape.manager.NativeManager
 
 @Composable
 fun RealmsContent(onBackClick: () -> Unit, font: FontFamily) {
+    val context = LocalContext.current
     AnimatedVisibility(
         visible = true,
         enter = fadeIn(animationSpec = tween(300)) + slideInVertically(animationSpec = tween(300)) { it / 2 },
@@ -51,8 +54,9 @@ fun RealmsContent(onBackClick: () -> Unit, font: FontFamily) {
                 textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.height(20.dp))
+
             Button(
-                onClick = onBackClick,
+                onClick = { },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.White.copy(alpha = 0.15f),
                     contentColor = Color.White

@@ -1,9 +1,15 @@
 package io.kitsuri.mayape.manager
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import io.kitsuri.mayape.models.TerminalViewModel
 
 object NativeManager {
     private var loggerViewModel: TerminalViewModel? = null
 
+    init {
+        System.loadLibrary("Shoki")
+    }
     fun initLogger(viewModel: TerminalViewModel) {
         loggerViewModel = viewModel
     }
@@ -14,9 +20,9 @@ object NativeManager {
             ?: run { println("NativeManager: Logger not initialized yet") }
     }
 
-    init {
-        System.loadLibrary("Shoki")
+    fun initialize(viewModel: TerminalViewModel) {
+        initLogger(viewModel)
+
     }
 
 }
-
