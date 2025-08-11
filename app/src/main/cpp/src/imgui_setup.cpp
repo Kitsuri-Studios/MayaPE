@@ -3,6 +3,7 @@
 
 bool g_ImGuiInitialized = false;
 
+
 void InitImGui() {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -31,3 +32,7 @@ void RenderImGui(EGLDisplay display, EGLSurface surface) {
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
+
+
+
+

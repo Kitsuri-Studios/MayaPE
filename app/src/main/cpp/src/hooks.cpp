@@ -6,31 +6,28 @@
 eglSwapBuffers_t eglSwapBuffers_original = nullptr;
 
 EGLBoolean eglSwapBuffers_hook(EGLDisplay display, EGLSurface surface) {
-    if (eglGetCurrentDisplay() != display || eglGetCurrentSurface(EGL_DRAW) != surface) {
-        LOGE("EGL context mismatch — skipping ImGui render");
-        return eglSwapBuffers_original(display, surface);
-    }
-
-    // Comment or uncomment this line in main.cpp to enable/disable ImGui
     RenderImGui(display, surface);
-
     return eglSwapBuffers_original(display, surface);
 }
 
 jint JNI_DoHooks() {
-    void *eglSwapBuffers_sym = DobbySymbolResolver(EGL_L, "eglSwapBuffers");
-    if (!eglSwapBuffers_sym) {
-        LOGE("Failed to resolve eglSwapBuffers symbol");
+    void* eglHandle = dlopen("libEGL.so", RTLD_NOW);
+    if (!eglHandle) {
+        LOGE("Failed to open libEGL.so");
         return JNI_ERR;
     }
 
-    if (DobbyHook(eglSwapBuffers_sym,
-                  reinterpret_cast<void *>(eglSwapBuffers_hook),
-                  reinterpret_cast<void **>(&eglSwapBuffers_original)) != 0) {
-        LOGE("Failed to hook eglSwapBuffers");
+    void* sym = dlsym(eglHandle, "eglSwapBuffers");
+    if (!sym) {
+        LOGE("Failed to find eglSwapBuffers symbol");
         return JNI_ERR;
     }
+    eglSwapBuffers_original = (eglSwapBuffers_t)sym;
 
-    LOGI("Successfully hooked eglSwapBuffers");
+    A64HookFunction((void*)eglSwapBuffers_original, (void*)eglSwapBuffers_hook, (void**)&eglSwapBuffers_original);
+    __builtin___clear_cache((char*)eglSwapBuffers_original, (char*)eglSwapBuffers_original + sizeof(void*));
+
+
+    LOGI("Hooked eglSwapBuffers successfully");
     return JNI_OK;
 }

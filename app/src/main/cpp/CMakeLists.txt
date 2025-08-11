@@ -3,10 +3,13 @@ project("mc")
 
 set(CMAKE_CXX_STANDARD 23)
 
-# ImGui sources (from cpp/include/imgui/)
 file(GLOB IMGUI_SOURCES
         include/imgui/*.cpp
-        include/imgui/backends/imgui_impl_opengl3.cpp  # Only GLES3 backend
+        include/imgui/backends/imgui_impl_opengl3.cpp
+)
+
+file(GLOB AND64_SOURCES
+        src/libs/And64InlineHook/*.cpp
 )
 
 add_library(${CMAKE_PROJECT_NAME} SHARED
@@ -15,33 +18,25 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
         src/imgui_setup.cpp
         src/jni_main.cpp
         ${IMGUI_SOURCES}
+        ${AND64_SOURCES}
 )
 
 add_subdirectory(hxo-loader)
-add_subdirectory(ELFChecker)
 add_subdirectory(Shoki)
-target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
-        include  # Points to cpp/include/
-)
 
-# Dobby hooking library
-include(cmake/CPM.cmake)
-CPMAddPackage(
-        NAME Dobby
-        GIT_REPOSITORY https://github.com/Lodingglue/Dobby
-        GIT_TAG        master
+target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
+        include
+        src/libs/And64InlineHook
 )
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
         android
-        dobby
         EGL
-        GLESv3  # MCPE uses GLES3
+        GLESv3
         log
         Shoki
 )
 
-# Explicitly enable GLES3 for ImGui
 target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
         IMGUI_IMPL_OPENGL_ES3
 )

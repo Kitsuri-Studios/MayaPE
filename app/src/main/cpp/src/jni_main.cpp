@@ -24,6 +24,6 @@ extern "C" JNIEXPORT jint JNI_OnLoad(JavaVM *vm, void *reserved) {
         return JNI_ERR;
     }
 
-    LOGI("MAya loaded successfully");
+    LOGI("Maya loaded successfully");
     return JNI_VERSION_1_6;
 }

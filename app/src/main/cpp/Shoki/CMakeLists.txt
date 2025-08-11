@@ -3,5 +3,6 @@ project("Shoki")
 add_library(Shoki SHARED
         logger.cpp
         jni_bridge.cpp
+        ElfTool.cpp
 )
 target_link_libraries(Shoki android log)
