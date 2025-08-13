@@ -1,13 +1,8 @@
 package io.kitsuri.mayape.manager
 
 import android.content.Context
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 
 class SettingsManager(private val context: Context) {
     private val prefs = context.getSharedPreferences("SettingsPrefs", Context.MODE_PRIVATE)

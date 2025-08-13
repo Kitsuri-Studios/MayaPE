@@ -93,6 +93,8 @@ fun TopBarContent(
                         onClick = { /* Handle download click */ }
                     )
                     AnimatedIcon(
+                        modifier = Modifier.padding(vertical = 6.3.dp)
+                            .align(Alignment.Top),
                         imageVector = Icons.Outlined.Settings,
                         contentDescription = "Settings",
                         onClick = onSettingsClick

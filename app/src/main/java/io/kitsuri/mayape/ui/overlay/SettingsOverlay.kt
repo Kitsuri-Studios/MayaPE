@@ -1,13 +1,12 @@
 package io.kitsuri.mayape.ui.overlay
 
 import android.app.Activity
-import android.content.Context
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -20,7 +19,6 @@ import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.FolderOpen
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
@@ -30,12 +28,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import io.kitsuri.mayape.manager.NativeBlurManager
 import io.kitsuri.mayape.manager.SettingItem
 import io.kitsuri.mayape.manager.SettingType
 import io.kitsuri.mayape.manager.SettingsManager
-
-
+import io.kitsuri.mayape.ui.theme.montserratFontFamily
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -43,7 +41,8 @@ fun SettingsOverlay(
     isVisible: Boolean,
     onClose: () -> Unit,
     settingsManager: SettingsManager,
-    useNativeBlur: Boolean = NativeBlurManager.isNativeBlurSupported()
+    useNativeBlur: Boolean = NativeBlurManager.isNativeBlurSupported(),
+    onNavigateAdvanceSettings: () -> Unit
 ) {
     val context = LocalContext.current
     val activity = context as? Activity
@@ -72,14 +71,19 @@ fun SettingsOverlay(
             if (!settingStates.containsKey(setting.key)) {
                 val savedValue = when (setting.type) {
                     SettingType.SWITCH, SettingType.CHECKBOX -> {
-                        settingsManager.getBooleanValue(setting.key, setting.defaultValue as Boolean)
+                        settingsManager.getBooleanValue(
+                            setting.key, setting.defaultValue as Boolean
+                        )
                     }
+
                     SettingType.SLIDER -> {
                         settingsManager.getFloatValue(setting.key, setting.defaultValue as Float)
                     }
+
                     SettingType.TEXT_FIELD -> {
                         settingsManager.getStringValue(setting.key, setting.defaultValue as String)
                     }
+
                     else -> setting.defaultValue
                 }
                 settingStates[setting.key] = mutableStateOf(savedValue)
@@ -97,35 +101,34 @@ fun SettingsOverlay(
         }
     }
 
+
+
     AnimatedVisibility(
         visible = isVisible,
         enter = fadeIn(animationSpec = tween(300)) + slideInVertically(animationSpec = tween(300)) { it },
-        exit = fadeOut(animationSpec = tween(300)) + slideOutVertically(animationSpec = tween(300)) { it }
-    ) {
+        exit = fadeOut(animationSpec = tween(300)) + slideOutVertically(animationSpec = tween(300)) { it }) {
         Box(
-            modifier = Modifier
-                .fillMaxSize()
+            modifier = Modifier.fillMaxSize()
         ) {
             Box(
                 modifier = if (useNativeBlur) {
-                    Modifier
-                        .fillMaxSize()
-                        .background(Color.Black.copy(alpha = 0.7f))
-                        .clickable(
-                            interactionSource = remember { MutableInteractionSource() },
-                            indication = null
-                        ) { onClose() }
-                } else {
-                    Modifier
-                        .fillMaxSize()
-                        .background(Color.Black.copy(alpha = 0.7f))
-                        .blur(radius = 8.dp)
-                        .clickable(
-                            interactionSource = remember { MutableInteractionSource() },
-                            indication = null
-                        ) { onClose() }
-                }
-            )
+                Modifier
+                    .fillMaxSize()
+                    .background(Color.Black.copy(alpha = 0.7f))
+                    .clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null
+                    ) { onClose() }
+            } else {
+                Modifier
+                    .fillMaxSize()
+                    .background(Color.Black.copy(alpha = 0.7f))
+                    .blur(radius = 8.dp)
+                    .clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null
+                    ) { onClose() }
+            })
 
             Column(
                 modifier = Modifier
@@ -137,8 +140,7 @@ fun SettingsOverlay(
                     .clickable(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = null
-                    ) {}
-            ) {
+                    ) {}) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -147,14 +149,14 @@ fun SettingsOverlay(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
+                        fontFamily = montserratFontFamily,
                         text = "Settings",
                         color = Color.White,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium
                     )
                     IconButton(
-                        onClick = onClose,
-                        modifier = Modifier.size(28.dp)
+                        onClick = onClose, modifier = Modifier.size(28.dp)
                     ) {
                         Icon(
                             imageVector = Icons.Outlined.Close,
@@ -173,6 +175,7 @@ fun SettingsOverlay(
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
+                            fontFamily = montserratFontFamily,
                             text = "No settings configured",
                             color = Color(0xFF757575),
                             fontSize = 12.sp
@@ -199,23 +202,39 @@ fun SettingsOverlay(
                                         if (setting.type != SettingType.INFO && setting.type != SettingType.BUTTON) {
                                             savePreference(setting.key, newValue)
                                         }
-                                    }
-                                )
+                                    })
                             }
                         }
                     }
                 }
+                Button(
+                    modifier = Modifier
+                        .padding(20.dp, 12.dp)
+                        .align(Alignment.End),
+
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFF1F1F1F).copy(alpha = 0.8f), contentColor = Color.White
+                    ),
+                    onClick = {}) {
+                    Text(
+                        text = "Advance",
+                        color = Color.White,
+                        fontFamily = montserratFontFamily,
+                        fontWeight = FontWeight.Light
+                    )
+                }
+
             }
+
         }
+
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingItemView(
-    setting: SettingItem,
-    currentValue: Any,
-    onValueChange: (Any) -> Unit
+    setting: SettingItem, currentValue: Any, onValueChange: (Any) -> Unit
 ) {
     when (setting.type) {
         SettingType.TEXT_FIELD -> {
@@ -223,6 +242,7 @@ fun SettingItemView(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
+                    fontFamily = montserratFontFamily,
                     text = setting.title,
                     color = Color(0xFFB0B0B0),
                     fontSize = 12.sp,
@@ -271,9 +291,7 @@ fun SettingItemView(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = setting.title,
-                    color = Color(0xFFB0B0B0),
-                    fontSize = 12.sp
+                    text = setting.title, color = Color(0xFFB0B0B0), fontSize = 12.sp
                 )
                 Switch(
                     checked = currentValue as Boolean,
@@ -295,9 +313,8 @@ fun SettingItemView(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = setting.title,
-                    color = Color(0xFFB0B0B0),
-                    fontSize = 12.sp
+                    fontFamily = montserratFontFamily,
+                    text = setting.title, color = Color(0xFFB0B0B0), fontSize = 12.sp
                 )
                 Checkbox(
                     checked = currentValue as Boolean,
@@ -321,11 +338,11 @@ fun SettingItemView(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = setting.title,
-                        color = Color(0xFFB0B0B0),
-                        fontSize = 12.sp
+                        fontFamily = montserratFontFamily,
+                        text = setting.title, color = Color(0xFFB0B0B0), fontSize = 12.sp
                     )
                     Text(
+                        fontFamily = montserratFontFamily,
                         text = "${(currentValue as Float).toInt()}${setting.suffix}",
                         color = Color.White,
                         fontSize = 14.sp,
@@ -363,8 +380,7 @@ fun SettingItemView(
                                 thumbColor = Color.White
                             )
                         )
-                    }
-                )
+                    })
             }
         }
 
